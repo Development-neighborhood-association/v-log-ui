@@ -51,14 +51,6 @@ const TagFilter = ({ selectedTags, tagMode, onTagsChange, onTagModeChange }: Tag
       tag.toLowerCase().includes(searchTag.toLowerCase()) && !selectedTags.includes(tag)
   );
 
-  const handleTagToggle = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      onTagsChange(selectedTags.filter((t) => t !== tag));
-    } else {
-      onTagsChange([...selectedTags, tag]);
-    }
-  };
-
   const handleTagSelect = (tag: string) => {
     if (!selectedTags.includes(tag)) {
       onTagsChange([...selectedTags, tag]);

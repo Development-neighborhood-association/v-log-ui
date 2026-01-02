@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { likesApi } from '../api/likes';
-import { LikeResponse } from '../types';
 import { handleApiError } from '../api/client';
 
 interface UsePostLikeReturn {
