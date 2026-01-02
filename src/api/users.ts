@@ -1,4 +1,4 @@
-import { ApiResponse, User } from '../types';
+import { ApiResponse } from '../types';
 import { apiClient } from './client';
 
 export interface UserGetResponse {

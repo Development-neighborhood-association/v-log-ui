@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { usersApi } from '../api/users';
 import { postsApi } from '../api/posts';
@@ -6,7 +6,7 @@ import { followsApi } from '../api/follows';
 import { likesApi } from '../api/likes';
 import { authApi } from '../api/auth';
 import { UserGetResponse } from '../api/users';
-import { PostListResponse, FollowerGetResponse, FollowingGetResponse, PageResponse, LikeResponse, FollowPageInfo } from '../types';
+import { PostListResponse, FollowerGetResponse, FollowingGetResponse, LikeResponse, FollowPageInfo } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { formatDate } from '../utils/date';
 import { truncateText } from '../utils/text';
@@ -17,7 +17,7 @@ import { handleApiError } from '../api/client';
 const ProfilePage = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
-  const { user, userDetail, refreshUser, isAuthenticated, logout } = useAuth();
+  const { user, userDetail, isAuthenticated, logout } = useAuth();
   const [profile, setProfile] = useState<UserGetResponse | null>(null);
   const [posts, setPosts] = useState<PostListResponse[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const ProfilePage = () => {
   const [followingsLoading, setFollowingsLoading] = useState(false);
   const [followersPage, setFollowersPage] = useState(0);
   const [followingsPage, setFollowingsPage] = useState(0);
-  const [error, setError] = useState('');
+  const [, setError] = useState('');
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -48,23 +48,6 @@ const ProfilePage = () => {
 
   const targetUserId = userId ? Number(userId) : user?.userId;
   const isOwnProfile = targetUserId === user?.userId;
-
-  // Top Tags 계산 (게시글의 태그들을 수집하여 빈도수로 정렬)
-  const topTags = useMemo(() => {
-    const tagCount: Record<string, number> = {};
-    posts.forEach((post) => {
-      if (post.tags) {
-        post.tags.forEach((tag) => {
-          tagCount[tag] = (tagCount[tag] || 0) + 1;
-        });
-      }
-    });
-    return Object.entries(tagCount)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 10)
-      .map(([tag]) => tag);
-  }, [posts]);
-
 
   // 게시글 썸네일 이미지 생성 (postId 기반)
   const getPostThumbnailUrl = (postId: number) => {

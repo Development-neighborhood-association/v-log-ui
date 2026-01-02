@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { postsApi } from '../api/posts';
-import { useAuth } from '../context/AuthContext';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 const PostEditPage = () => {
@@ -16,7 +15,6 @@ const PostEditPage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const { isAuthenticated } = useAuth();
   const titleTextareaRef = useRef<HTMLTextAreaElement>(null);
   const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
 

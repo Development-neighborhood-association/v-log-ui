@@ -2,7 +2,6 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostListResponse } from '../types';
 import { formatDate } from '../utils/date';
-import { getPostGradient } from '../utils/constants';
 
 interface PostCardProps {
   post: PostListResponse;
@@ -14,8 +13,6 @@ const PostCard = memo(({ post }: PostCardProps) => {
   const handleClick = useCallback(() => {
     navigate(`/posts/${post.postId}`);
   }, [navigate, post.postId]);
-
-  const gradient = getPostGradient(post.postId);
 
   return (
     <article
